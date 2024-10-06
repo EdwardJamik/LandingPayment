@@ -8,10 +8,10 @@ module.exports.createInvoice = async (req, res, next) => {
 
         const createMonoInvoice = await axios.post(`https://api.monobank.ua/api/merchant/invoice/create`,
             {
-                // "amount": type ? 30000 : 9900,
-                "amount": type ? 1 : 1,
-                // "ccy": 978,
-                "ccy": 980,
+                "amount": type ? 30000 : 9900,
+                // "amount": type ? 1 : 1,
+                "ccy": 978,
+                // "ccy": 980,
                 "merchantPaymInfo": {
                     // "reference": "84d0070ee4e44667b31371d8f8813947",
                     "destination": `${type ? 'ПРЕМІУМ' : 'Базовий тариф'}`,
@@ -80,8 +80,8 @@ module.exports.getPaymentStatus = async (req, res, next) => {
                     }
                 })
         }
-        console.log('get payment')
-        console.log(req.body)
+        // console.log('get payment')
+        // console.log(req.body)
 
 
     } catch (error) {
