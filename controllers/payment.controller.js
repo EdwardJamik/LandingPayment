@@ -9,7 +9,7 @@ module.exports.createInvoice = async (req, res, next) => {
         const createMonoInvoice = await axios.post(`https://api.monobank.ua/api/merchant/invoice/create`,
             {
                 // "amount": type ? 30000 : 9900,
-                "amount": type ? 10 : 10,
+                "amount": type ? 1 : 1,
                 // "ccy": 978,
                 "ccy": 980,
                 "merchantPaymInfo": {
