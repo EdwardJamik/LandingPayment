@@ -34,7 +34,6 @@ module.exports.createInvoice = async (req, res, next) => {
             })
 
         if (createMonoInvoice?.data?.pageUrl) {
-            console.log(createMonoInvoice?.data)
             await PaymentListModel.insertMany({ invoiceId: createMonoInvoice?.data?.invoiceId, many_id: many_id})
             res.json({ url: createMonoInvoice?.data?.pageUrl });
         } else{
@@ -49,9 +48,38 @@ module.exports.createInvoice = async (req, res, next) => {
 
 module.exports.getPaymentStatus = async (req, res, next) => {
     try {
-        const {type, many_id} = req.body
+        const {status,invoiceId} = req.body
 
 
+        if(status === 'success'){
+            const findManyUserId = await PaymentListModel.findOne({invoiceId:invoiceId})
+            await axios.post(`https://api.manychat.com/fb/subscriber/setCustomField`,
+                {
+                    "subscriber_id": `${findManyUserId?.many_id}`,
+                    "field_id": 11858117,
+                    "field_value": "success",
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Token': `${process.env.MONO_TOKEN_API}`
+                    }
+                })
+        } else if(status === 'failed' || status === 'fail'){
+            const findManyUserId = await PaymentListModel.findOne({invoiceId:invoiceId})
+            await axios.post(`https://api.manychat.com/fb/subscriber/setCustomField`,
+                {
+                    "subscriber_id": `${findManyUserId?.many_id}`,
+                    "field_id": 11858117,
+                    "field_value": "failed"
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Token': `${process.env.MONO_TOKEN_API}`
+                    }
+                })
+        }
         console.log('get payment')
         console.log(req.body)
 
