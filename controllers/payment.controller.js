@@ -29,6 +29,7 @@ module.exports.createInvoice = async (req, res, next) => {
                 }
             })
 
+        console.log(createMonoInvoice)
         if (createMonoInvoice?.pageUrl) {
             res.json({ url: createMonoInvoice?.pageUrl });
         } else{
