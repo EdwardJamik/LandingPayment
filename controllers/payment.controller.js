@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-const paymentList = require('/models/paymentList.model')
+const PaymentListModel = require('../models/paymentList.model');
 
 module.exports.createInvoice = async (req, res, next) => {
     try {
@@ -35,7 +35,7 @@ module.exports.createInvoice = async (req, res, next) => {
 
         if (createMonoInvoice?.data?.pageUrl) {
             console.log(createMonoInvoice?.data)
-            paymentList.insertMany({ invoiceId: createMonoInvoice?.data?.invoiceId, many_id: many_id})
+            await PaymentListModel.insertMany({ invoiceId: createMonoInvoice?.data?.invoiceId, many_id: many_id})
             res.json({ url: createMonoInvoice?.data?.pageUrl });
         } else{
             res.json('Error');
