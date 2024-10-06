@@ -62,7 +62,7 @@ module.exports.getPaymentStatus = async (req, res, next) => {
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-Token': `${process.env.MONO_TOKEN_API}`
+                        'Authorization': `Bearer 1866595:015f2ff67486adebc681fbef32ae4902`
                     }
                 })
         } else if(status === 'failed' || status === 'fail'){
@@ -76,7 +76,7 @@ module.exports.getPaymentStatus = async (req, res, next) => {
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-Token': `${process.env.MONO_TOKEN_API}`
+                        'Authorization': `Bearer 1866595:015f2ff67486adebc681fbef32ae4902`
                     }
                 })
         }
