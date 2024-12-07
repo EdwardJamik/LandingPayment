@@ -4,17 +4,17 @@ const PaymentListModel = require('../models/paymentList.model');
 
 module.exports.createInvoice = async (req, res, next) => {
     try {
-        const {type, many_id} = req.body
+        const {type, price, title, many_id} = req.body
 
         const createMonoInvoice = await axios.post(`https://api.monobank.ua/api/merchant/invoice/create`,
             {
-                "amount": type ? 30000 : 9900,
+                "amount": Number(price),
                 // "amount": type ? 1 : 1,
-                "ccy": 978,
-                // "ccy": 980,
+                // "ccy": 978,
+                "ccy": 980,
                 "merchantPaymInfo": {
                     // "reference": "84d0070ee4e44667b31371d8f8813947",
-                    "destination": `${type ? 'ПРЕМІУМ' : 'Базовий тариф'}`,
+                    "destination": `${title}`,
                 },
                 "redirectUrl": "https://t.me/yanagrandamakeup_bot?start=w30656858",
                 "webHookUrl": "https://yanagranda.pp.ua/api/v1/getPayment",
