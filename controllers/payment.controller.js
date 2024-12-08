@@ -1,12 +1,9 @@
 const axios = require('axios')
-
 const PaymentListModel = require('../models/paymentList.model');
 
 module.exports.createInvoice = async (req, res, next) => {
     try {
-        const {type, price, title, many_id} = req.body
-
-        console.log(type, price, title, many_id)
+        const {type, price, title, many_id} = req.query;
 
         const createMonoInvoice = await axios.post(`https://api.monobank.ua/api/merchant/invoice/create`,
             {
@@ -50,8 +47,7 @@ module.exports.createInvoice = async (req, res, next) => {
 
 module.exports.getPaymentStatus = async (req, res, next) => {
     try {
-        const {status,invoiceId} = req.body
-
+        const {status,invoiceId} = req.query;
 
         if(status === 'success'){
             const findManyUserId = await PaymentListModel.findOne({invoiceId:invoiceId})
